@@ -13980,8 +13980,8 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Introduction"><strong>Introduction</strong><a class="anchor-link" href="#Introduction">&#182;</a></h2><p>Soccer, known as football in some parts of the world, is more than just a sport; it is a global phenomenon that unites millions of fans through its thrilling matches and historic tournaments. Among these tournaments, the UEFA Champions League stands out as one of the most prestigious and fiercely contested competitions. Predicting the winner of such a high-stakes event is not only a fascinating challenge but also one that has significant implications for fans, clubs, and the sports betting industry.</p>
 <h3 id="Why-is-Predicting-UEFA-Champions-League-Coefficients-Important?">Why is Predicting UEFA Champions League Coefficients Important?<a class="anchor-link" href="#Why-is-Predicting-UEFA-Champions-League-Coefficients-Important?">&#182;</a></h3><p>Sports predictions, particularly for high-profile events like the UEFA Champions League, hold immense importance. Accurate predictions can influence betting markets, enhance fan engagement, and provide strategic insights for clubs and analysts. Beyond the excitement of guessing the winner, predicting outcomes in sports involves analyzing vast amounts of data and identifying patterns, which is a perfect application of data science.</p>
-<p>In recent years, the use of machine learning in sports analytics has grown tremendously. By leveraging historical data and advanced algorithms, we can uncover the factors that contribute to a team's success and build models that predict future outcomes with impressive accuracy. This project will take you through the entire data science pipeline to create a machine learning model, specifically a decision tree, to predict UEFA Champions League winners.</p>
-<h3 id="Objective">Objective<a class="anchor-link" href="#Objective">&#182;</a></h3><p>The main goal of this project is to develop a decision tree model to predict the winners of the UEFA Champions League. We will guide you through each step of the data science lifecycle, from data collection and preprocessing to exploratory data analysis (EDA), model training, and evaluation. By the end of this tutorial, you will have a comprehensive understanding of the processes involved in building a predictive model and the factors that influence the outcomes of football matches.</p>
+<p>In recent years, the use of machine learning in sports analytics has grown tremendously. By leveraging historical data and advanced algorithms, we can uncover the factors that contribute to a team's success and build models that predict future outcomes with impressive accuracy. This project will take you through the entire data science pipeline to create a machine learning model to predict UEFA Champions League winners.</p>
+<h3 id="Objective">Objective<a class="anchor-link" href="#Objective">&#182;</a></h3><p>The main goal of this project is to develop a machine learning model to predict the winners of the UEFA Champions League. We will guide you through each step of the data science lifecycle, from data collection and preprocessing to exploratory data analysis (EDA), model training, and evaluation. By the end of this tutorial, you will have a comprehensive understanding of the processes involved in building a predictive model and the factors that influence the outcomes of football matches.</p>
 <p>Over this tutorial we will be going through the Data Science Lifecycle</p>
 
 </div>
@@ -14008,7 +14008,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[377]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[382]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -14023,9 +14023,6 @@ a.anchor-link {
 
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingRegressor</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
@@ -16909,208 +16906,6 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Next, we found the results of all matches that occurred in the Champions League from 2016 - 2022. Since we are specifically investigating from 2018 onward, we decided to filter out all matches that occurred before that point. The reason why we are interested in the outcome of different matches is so we can determine where each team finished at the end of the UCL tournament. The dataset used can be found at the following link: <a href="https://www.kaggle.com/datasets/mikolajhojda/uefa-champions-league-20152016-20212022">https://www.kaggle.com/datasets/mikolajhojda/uefa-champions-league-20152016-20212022</a></p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[380]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;matches.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
-
-<span class="c1"># Convert the &#39;datetime&#39; column to datetime format</span>
-<span class="n">matches</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">matches</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
-
-<span class="c1"># Define the cutoff date for filtering</span>
-<span class="n">cutoff_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2018-07-01 00:00:00+00:00&#39;</span><span class="p">)</span>
-
-<span class="c1"># Filter the DataFrame to include only matches from the cutoff date onwards</span>
-<span class="n">filtered_matches</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="n">matches</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">cutoff_date</span><span class="p">]</span>
-
-<span class="n">filtered_matches</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">/var/folders/4f/7c2yrv812tzb6pdfjxvdnrkm0000gq/T/ipykernel_17926/2296496844.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>matches <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>read_csv<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;matches.csv&#34;</span><span class="ansi-blue-fg">,</span> encoding<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;UTF-8&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> 
-<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg"># Convert the &#39;datetime&#39; column to datetime format</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> matches<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;datetime&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>to_datetime<span class="ansi-blue-fg">(</span>matches<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;datetime&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> 
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ansi-cyan-fg">wrapper</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    309</span>                     stacklevel<span class="ansi-blue-fg">=</span>stacklevel<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    310</span>                 )
-<span class="ansi-green-fg">--&gt; 311</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> func<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    312</span> 
-<span class="ansi-green-intense-fg ansi-bold">    313</span>         <span class="ansi-green-fg">return</span> wrapper
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ansi-cyan-fg">read_csv</span><span class="ansi-blue-fg">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
-<span class="ansi-green-intense-fg ansi-bold">    584</span>     kwds<span class="ansi-blue-fg">.</span>update<span class="ansi-blue-fg">(</span>kwds_defaults<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    585</span> 
-<span class="ansi-green-fg">--&gt; 586</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> _read<span class="ansi-blue-fg">(</span>filepath_or_buffer<span class="ansi-blue-fg">,</span> kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    587</span> 
-<span class="ansi-green-intense-fg ansi-bold">    588</span> 
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ansi-cyan-fg">_read</span><span class="ansi-blue-fg">(filepath_or_buffer, kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    480</span> 
-<span class="ansi-green-intense-fg ansi-bold">    481</span>     <span class="ansi-red-fg"># Create the parser.</span>
-<span class="ansi-green-fg">--&gt; 482</span><span class="ansi-red-fg">     </span>parser <span class="ansi-blue-fg">=</span> TextFileReader<span class="ansi-blue-fg">(</span>filepath_or_buffer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    483</span> 
-<span class="ansi-green-intense-fg ansi-bold">    484</span>     <span class="ansi-green-fg">if</span> chunksize <span class="ansi-green-fg">or</span> iterator<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, f, engine, **kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    809</span>             self<span class="ansi-blue-fg">.</span>options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;has_index_names&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> kwds<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;has_index_names&#34;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    810</span> 
-<span class="ansi-green-fg">--&gt; 811</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_engine <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_make_engine<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>engine<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    812</span> 
-<span class="ansi-green-intense-fg ansi-bold">    813</span>     <span class="ansi-green-fg">def</span> close<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ansi-cyan-fg">_make_engine</span><span class="ansi-blue-fg">(self, engine)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1038</span>             )
-<span class="ansi-green-intense-fg ansi-bold">   1039</span>         <span class="ansi-red-fg"># error: Too many arguments for &#34;ParserBase&#34;</span>
-<span class="ansi-green-fg">-&gt; 1040</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> mapping<span class="ansi-blue-fg">[</span>engine<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>f<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>self<span class="ansi-blue-fg">.</span>options<span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># type: ignore[call-arg]</span>
-<span class="ansi-green-intense-fg ansi-bold">   1041</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1042</span>     <span class="ansi-green-fg">def</span> _failover_to_python<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/c_parser_wrapper.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, src, **kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">     49</span> 
-<span class="ansi-green-intense-fg ansi-bold">     50</span>         <span class="ansi-red-fg"># open handles</span>
-<span class="ansi-green-fg">---&gt; 51</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_open_handles<span class="ansi-blue-fg">(</span>src<span class="ansi-blue-fg">,</span> kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     52</span>         <span class="ansi-green-fg">assert</span> self<span class="ansi-blue-fg">.</span>handles <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">     53</span> 
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/base_parser.py</span> in <span class="ansi-cyan-fg">_open_handles</span><span class="ansi-blue-fg">(self, src, kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    220</span>         Let the readers open IOHandles after they are done <span class="ansi-green-fg">with</span> their potential raises<span class="ansi-blue-fg">.</span>
-<span class="ansi-green-intense-fg ansi-bold">    221</span>         &#34;&#34;&#34;
-<span class="ansi-green-fg">--&gt; 222</span><span class="ansi-red-fg">         self.handles = get_handle(
-</span><span class="ansi-green-intense-fg ansi-bold">    223</span>             src<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    224</span>             <span class="ansi-blue-fg">&#34;r&#34;</span><span class="ansi-blue-fg">,</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/common.py</span> in <span class="ansi-cyan-fg">get_handle</span><span class="ansi-blue-fg">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="ansi-green-intense-fg ansi-bold">    700</span>         <span class="ansi-green-fg">if</span> ioargs<span class="ansi-blue-fg">.</span>encoding <span class="ansi-green-fg">and</span> <span class="ansi-blue-fg">&#34;b&#34;</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">in</span> ioargs<span class="ansi-blue-fg">.</span>mode<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    701</span>             <span class="ansi-red-fg"># Encoding</span>
-<span class="ansi-green-fg">--&gt; 702</span><span class="ansi-red-fg">             handle = open(
-</span><span class="ansi-green-intense-fg ansi-bold">    703</span>                 handle<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    704</span>                 ioargs<span class="ansi-blue-fg">.</span>mode<span class="ansi-blue-fg">,</span>
-
-<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;matches.csv&#39;</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Building off of our intentions with the matches dataset, we then create a dataframe to list out the teams that played in each year's UCL knockout stage and the furthest they got. The code below creates that dataframe.</p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">knockout_rounds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Round of 16&#39;</span><span class="p">,</span> <span class="s1">&#39;Quarter-finals&#39;</span><span class="p">,</span> <span class="s1">&#39;Semi-finals&#39;</span><span class="p">,</span> <span class="s1">&#39;Final&#39;</span><span class="p">]</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="n">matches</span><span class="p">[</span><span class="s1">&#39;round&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">knockout_rounds</span><span class="p">)]</span>
-
-<span class="c1"># Create a dictionary to specify the order of rounds</span>
-<span class="n">round_order</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="s1">&#39;ro16 reached&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="s1">&#39;qf reached&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="s1">&#39;sf reached&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="s1">&#39;final reached&#39;</span>
-<span class="p">}</span>
-
-<span class="c1"># Create a list to store the results</span>
-<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># Iterate over each year</span>
-<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">2023</span><span class="p">):</span>
-    <span class="c1"># Filter matches for the current season</span>
-    <span class="n">season_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">year</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s1">-07-01 00:00:00+00:00&#39;</span><span class="p">)</span>
-    <span class="n">season_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">-06-30 00:00:00+00:00&#39;</span><span class="p">)</span>
-    <span class="n">season_matches</span> <span class="o">=</span> <span class="n">filtered_matches</span><span class="p">[(</span><span class="n">filtered_matches</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">season_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">filtered_matches</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">season_end</span><span class="p">)]</span>
-
-    <span class="n">teams</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;team1&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;team2&#39;</span><span class="p">]))</span>
-
-    <span class="k">for</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">teams</span><span class="p">:</span>
-        <span class="n">team_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;team&#39;</span><span class="p">:</span> <span class="n">team</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span> <span class="s1">&#39;ro16 reached&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;qf reached&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sf reached&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;final reached&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;final won&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-
-        <span class="c1"># Check if the team reached each round</span>
-        <span class="k">for</span> <span class="n">round_name</span><span class="p">,</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="n">round_order</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">any</span><span class="p">((</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;team1&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">team</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;round&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">round_name</span><span class="p">))</span> <span class="ow">or</span> \
-               <span class="nb">any</span><span class="p">((</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;team2&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">team</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;round&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">round_name</span><span class="p">)):</span>
-                <span class="n">team_data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-
-        <span class="c1"># Check if the team won the final</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">((</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;team1&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">team</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;round&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;score1&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;score2&#39;</span><span class="p">]))</span> <span class="ow">or</span> \
-           <span class="nb">any</span><span class="p">((</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;team2&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">team</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;round&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;score2&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">season_matches</span><span class="p">[</span><span class="s1">&#39;score1&#39;</span><span class="p">])):</span>
-            <span class="n">team_data</span><span class="p">[</span><span class="s1">&#39;final won&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-
-        <span class="c1"># Append the team&#39;s data to the results list</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">team_data</span><span class="p">)</span>
-
-<span class="c1"># Create a DataFrame from the results list</span>
-<span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-
-<span class="c1"># Print the final DataFrame</span>
-<span class="n">results_df</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Here, we filter out teams that have never reached the knockout stage of a UCL. We think that because these teams have never reached the knockout stage, and we are specifically predicting the results of the knockout stage, teams that have never reached the knockout stage are likely to not provide much information about winning chances in the knockout stage.</p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filtered_results_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;ro16 reached&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">filtered_results_df</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Data-Processing"><strong>Data Processing</strong><a class="anchor-link" href="#Data-Processing">&#182;</a></h2><ol>
 <li>Put data in Dataframe</li>
 <li>Remove Unecessary Columns</li>
@@ -18881,9 +18676,8 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Exploratory-Analysis-&amp;-Data-Visualization"><strong>Exploratory Analysis &amp; Data Visualization</strong><a class="anchor-link" href="#Exploratory-Analysis-&amp;-Data-Visualization">&#182;</a></h2><p>In this section of the data science life cycle, we are going to graph the data in order to gain a better understanding of the data. Also, we attempt to perform statistical analyses in this section to gain mathematical evidence for the trends we may discover. In other words, as the title is indicating, we are going to further explore the data.</p>
-<p>Get Data we want to analyze</p>
-<p>Visualize it in graphs etc</p>
+<h2 id="Exploratory-Analysis-&amp;-Data-Visualization"><strong>Exploratory Analysis &amp; Data Visualization</strong><a class="anchor-link" href="#Exploratory-Analysis-&amp;-Data-Visualization">&#182;</a></h2><p>In this section of the data science life cycle, we are going to graph the data in order to gain a better understanding of the data.</p>
+<p>We are going to look at Year vs. Expenditures Normalized for every team. This should give us an idea of how the expenditures per team has changed over the years, which may affect our prediction.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
